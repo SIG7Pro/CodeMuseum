@@ -1,0 +1,5 @@
+                    menuInfo.playAnim('itemDeselect');
+					menuExit.playAnim('itemDeselect');
+					menuPlay.playAnim('itemDeselect');
+					menuOptions.playAnim('itemDeselect');
+					menuExtras.playAnim('itemDeselect');

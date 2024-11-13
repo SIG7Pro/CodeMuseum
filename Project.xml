@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<!-- App Info -->
+
+	<meta title="Code Museum" package="com.AARECo.codemuseum" version="0.0.1a" company="AARECo"/>
+	<app main="Main" file="CodeMuseum" preloader="flixel.system.FlxPreloader"/>
+	
+	<window background="#000000" hardware="true"/>
+
+	<!--
+
+	Emulation:
+	- Window Scale: 960x720 (x3)
+
+	GFX Plugins:
+	ParaLLEl
+	- Auto (x4 - 1280x960)
+	GLideN64/OGRE
+	- [ ] Anti-Aliasing
+	- [O] Use N64 3-Point Filtering
+	-->
+
+	<haxedef name="N64_SIZE" if="n64s1"/> <!-- According to Parallel Launcher --> <!-- lime test [] -Dn64s1 -->
+	<haxedef name="N64_SIZE_2" if="n64s2"/>
+	<haxedef name="N64_SIZE_3" if="n64s3"/>
+	<haxedef name="N64_SIZE_4" if="n64s4"/>
+	<haxedef name="N64_WIDESCREEN" if="n64ws"/>
+
+	<window width="1280" height="720" if="N64_SIZE_3  N64_WIDESCREEN"/>
+	<window width="320" height="240" if="N64_SIZE"/>
+	<window width="640" height="480" if="N64_SIZE_2"/>
+	<window width="960" height="720" if="N64_SIZE_3"/>
+	<window width="1280" height="960" if="N64_SIZE_4"/>
+
+	<window if="html5" resizable="false"/>
+	<window if="desktop" orientation="landscape"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0"/>
+
+
+	<!-- <window if="N64_SIZE" width="320" height="240" if="N64_SIZE_2" width="640" height="480" if="N64_SIZE_3" width="960" height="720" if="N64_SIZE_4" width="1280" height="960"/> -->
+
+	<!-- Compiler Conditionals -->
+
+	<section if="32bit">
+		<set name="BUILD_DIR" value="export/debug/32bit" if="debug"/>
+		<set name="BUILD_DIR" value="export/release/32bit" if="release"/>
+		<set name="BUILD_DIR" value="export/final/32bit" if="final"/>
+	</section>
+	<section unless="32bit">
+		<set name="BUILD_DIR" value="export/debug/64bit" if="debug"/>
+		<set name="BUILD_DIR" value="export/release/64bit" if="release"/>
+		<set name="BUILD_DIR" value="export/final/64bit" if="final"/>
+	</section>
+
+	<source path="source"/>
+	<assets path="assets"/>
+
+	<!-- Libraries -->
+	
+	<haxelib name="flixel"/>
+	<haxelib name="flixel-addons"/>
+
+	<!-- Defining -->
+
+	<section if="mobile">
+		<haxedef name="FLX_NO_MOUSE"/>
+		<haxedef name="FLX_NO_KEYBOARD"/>
+	</section>
+	<haxedef name="FLX_NO_TOUCH" if="desktop"/>
+
+</project>
