@@ -4,16 +4,13 @@ import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxState;
 import flixel.util.FlxColor;
-
 import flixel.addons.display.shapes.FlxShapeBox;
 import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.addons.display.shapes.FlxShapeCross;
-
 import flixel.math.FlxVelocity;
 
-//Note: It is 11:26 pm on Sunday, Aug 11th, 2024. I have had a bad day, as my day was mostly wasted.
+// Note: It is 11:26 pm on Sunday, Aug 11th, 2024. I have had a bad day, as my day was mostly wasted.
 // I am here instead of showering.
-
 class MoveState extends FlxState {
 	var baseBG:FlxSprite;
 
@@ -21,6 +18,7 @@ class MoveState extends FlxState {
 	public var secondBacker:FlxShapeBox;
 	public var thirdSlot:FlxShapeCross;
 	public var fourthButFirst:FlxShapeCircle;
+
 	var sprite:FlxSprite;
 
 	private var g0Aangle:Float = 30;
@@ -28,12 +26,10 @@ class MoveState extends FlxState {
 	public var borderLeftX:Float = (FlxG.width / 2) - 170;
 	public var borderRightX:Float = (FlxG.width / 2) + 170;
 
-
 	// The sprites that are set to change.
 
 	override function create() {
-
-		//trace("Random number from 0 to 5:   " + FlxG.random.int(0, 5) );
+		// trace("Random number from 0 to 5:   " + FlxG.random.int(0, 5) );
 
 		baseBG = new FlxSprite();
 		baseBG.makeGraphic(1280, 720, 0xff7ec2ce);
@@ -53,7 +49,7 @@ class MoveState extends FlxState {
 		glossLine2.x = FlxG.width / 2; // Screen width divided by two.
 		glossLine2.flipX = true;
 		glossLine2.updateHitbox();
-		
+
 		sprite = new FlxSprite();
 		sprite.makeGraphic(128, 64, FlxColor.RED);
 		sprite.screenCenter();
@@ -61,99 +57,93 @@ class MoveState extends FlxState {
 
 		firstImage = new FlxShapeCircle(70, 150, 25, {}, FlxColor.BLUE);
 		firstImage.screenCenter(X);
-		
-		//firstImage.alpha = 0.01;
+
+		// firstImage.alpha = 0.01;
 		add(firstImage);
 
 		secondBacker = new FlxShapeBox(70, 300, 50, 50, {}, FlxColor.BLUE);
 		secondBacker.screenCenter(X);
-		//secondBacker.alpha = 0.01;
+		// secondBacker.alpha = 0.01;
 		add(secondBacker);
 
 		thirdSlot = new FlxShapeCross(70, 450, 50, 25, 50, 25, 0.5, 0.5, {}, FlxColor.PINK);
 		thirdSlot.screenCenter(X);
-		//thirdSlot.alpha = 0.01;
+		// thirdSlot.alpha = 0.01;
 		add(thirdSlot);
 
 		fourthButFirst = new FlxShapeCircle(10, 70, 25, {}, FlxColor.BLUE);
 		fourthButFirst.screenCenter(X);
 		fourthButFirst.alpha = 0.01;
-		//add(fourthButFirst);
+		// add(fourthButFirst);
 
 		add(glossLine1);
 		add(glossLine2);
-	
+
 		moveNum1first();
 	}
 
-	function moveNum1first(){
-		//firstImage.angle = FlxG.random.int(0, 360);
+	function moveNum1first() {
+		// firstImage.angle = FlxG.random.int(0, 360);
 		firstImage.angle = FlxG.random.int(0, 360);
 		firstImage.velocity.copyFrom(FlxVelocity.velocityFromAngle(g0Aangle, 200));
-		
-		//trace("Angle:" + firstImage.angle + " Velocity:" + firstImage.velocity.x + ", " + firstImage.velocity.y);
-		
-		//sprite.velocity.x = 100;
-		//moveSprite();
-		//if( ){
+
+		// trace("Angle:" + firstImage.angle + " Velocity:" + firstImage.velocity.x + ", " + firstImage.velocity.y);
+
+		// sprite.velocity.x = 100;
+		// moveSprite();
+		// if( ){
 		//	firstImage.alpha -= 0.10;
-		//}
-		
+		// }
+
 		/*if ((firstImage.x < borderLeftX) || (firstImage.x > borderRightX))
 			{
 				firstImage.alpha -= -0.01;
-			}*/
-
+		}*/
 	}
 
-	override function update(elapsed:Float){
+	override function update(elapsed:Float) {
 		super.update(elapsed);
-		//sprite.velocity.x = 100;
-		//firstImage.velocity.copyFrom(FlxVelocity.velocityFromAngle(g0Aangle, 200));
+		// sprite.velocity.x = 100;
+		// firstImage.velocity.copyFrom(FlxVelocity.velocityFromAngle(g0Aangle, 200));
 
-		if (FlxG.keys.anyPressed( [ESCAPE, BACKSPACE] ) )
-			{
-				FlxG.switchState(ui.menus.MoveState.new);
-				//FlxG.stage.window.title = "Rap-It-Up";
-				trace("Returning to Title.");
-			}
+		if (FlxG.keys.anyPressed([ESCAPE, BACKSPACE])) {
+			FlxG.switchState(ui.menus.MoveState.new);
+			// FlxG.stage.window.title = "Rap-It-Up";
+			trace("Returning to Title.");
+		}
 
-			if ((firstImage.x < borderLeftX) || (firstImage.x > borderRightX))
-				{
-					//trace("Yes.");
-					firstImage.alpha -= 0.005;
-				}
-			if((firstImage.alpha < 0.1)){
-				firstImage.velocity.x = 0;
-				firstImage.velocity.y= 0;
-				firstImage.x = FlxG.width / 2;
-				firstImage.y = FlxG.height / 2;
-				firstImage.alpha = 1; // This is to confirm the code worked.
-			}
+		if ((firstImage.x < borderLeftX) || (firstImage.x > borderRightX)) {
+			// trace("Yes.");
+			firstImage.alpha -= 0.005;
+		}
+		if ((firstImage.alpha < 0.1)) {
+			firstImage.velocity.x = 0;
+			firstImage.velocity.y = 0;
+			firstImage.x = FlxG.width / 2;
+			firstImage.y = FlxG.height / 2;
+			firstImage.alpha = 1; // This is to confirm the code worked.
+		}
 	}
 
-		//Notes to self:
-			/*	
-			I've decided the maximum X value for the sprite to be at full opacity be roughly 170.
-			For the Y value, 124.
-			Also, make the velocity go according to the sprite's size, so bigger = faster, smaller = slower.
-			So its a size to speed ratio.
+	// Notes to self:
+	/*	
+		I've decided the maximum X value for the sprite to be at full opacity be roughly 170.
+		For the Y value, 124.
+		Also, make the velocity go according to the sprite's size, so bigger = faster, smaller = slower.
+		So its a size to speed ratio.
 
-			Something like:
-			if [sprite].x is less than 170 (or more than the width minus 170) then
-				fade away
-			end
-			
-			say if the velocity for a full sized sprite were to be 15
-			then like, set it to be like
-			sprite size divided by like [full size / 15] then yeah
-			not sure, its 1:17 soon to be 1:18 am now it is
+		Something like:
+		if [sprite].x is less than 170 (or more than the width minus 170) then
+			fade away
+		end
 
-			*/
+		say if the velocity for a full sized sprite were to be 15
+		then like, set it to be like
+		sprite size divided by like [full size / 15] then yeah
+		not sure, its 1:17 soon to be 1:18 am now it is
 
-			// Half of the 720p (640) screen width is 640.
-			// Subtract by 170 is 470.
-
-			// Add 640 + 170 = 810
-
+	 */
+	// Half of the 720p (640) screen width is 640.
+	// Subtract by 170 is 470.
+	// Add 640 + 170 = 810
 }

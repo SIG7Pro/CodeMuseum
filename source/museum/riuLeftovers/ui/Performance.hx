@@ -12,13 +12,14 @@ import openfl.display.Shape;
 import openfl.display.Bitmap;
 import openfl.text.TextField;
 import openfl.display.Sprite;
-//import lime.system.System;
 
+// import lime.system.System;
 class Performance extends Sprite {
 	var performanceText:TextField;
 	var appText:TextField;
 
 	var fpsHistory:Array<Int> = [for (i in 0...fpsHistoryLength) 0];
+
 	static final fpsHistoryLength = 30;
 
 	// frame skip shit
@@ -30,10 +31,11 @@ class Performance extends Sprite {
 	// paddings betweeb elements
 	var paddingX = 10.0;
 	var paddingY = 3.0;
-	
+
 	// graph preference stuff
 	public var graphBarThickness = 3;
 	public var graphBarPadding = 1;
+
 	var barHeight = 30;
 
 	// visuals
@@ -81,7 +83,7 @@ class Performance extends Sprite {
 			appText.width = 500;
 			appText.selectable = true;
 			appText.defaultTextFormat = performanceText.defaultTextFormat;
-			//appText.text = 'Title: ${FlxG.stage.application.meta.get('title')}\nVersion: ${FlxG.stage.application.meta.get('version')}';
+			// appText.text = 'Title: ${FlxG.stage.application.meta.get('title')}\nVersion: ${FlxG.stage.application.meta.get('version')}';
 			appText.text = 'Operating System: ' + Main.OSVers + '\nVersion: ${FlxG.stage.application.meta.get('version')}';
 			appText.embedFonts = true;
 			nextX = appText.x + appText.textWidth + paddingX;
@@ -99,9 +101,12 @@ class Performance extends Sprite {
 		bound = new Bitmap();
 		// onResize(null);
 		addChild(bound);
-		if (logoData != null) addChild(logo);
-		if (showAppText) addChild(appText);
-		if (showGraph) addChild(graph);
+		if (logoData != null)
+			addChild(logo);
+		if (showAppText)
+			addChild(appText);
+		if (showGraph)
+			addChild(graph);
 		addChild(performanceText);
 
 		FlxG.stage.addEventListener(Event.RESIZE, onResize);
@@ -125,13 +130,14 @@ class Performance extends Sprite {
 
 			if (visible) {
 				var fps = times.length;
-				if (showGraph) drawGraph(fps);
+				if (showGraph)
+					drawGraph(fps);
 				performanceText.text = 'FPS: $fps\nRAM: $formattedRam\nVRAM: $formattedVram';
 			}
 		}
 		skipped++;
 	}
-	
+
 	function drawGraph(fps:Int) {
 		var color:Int;
 		fpsHistory.push(fps);
@@ -139,11 +145,15 @@ class Performance extends Sprite {
 		graph.graphics.clear();
 		for (i in 0...fpsHistoryLength) {
 			graph.graphics.moveTo(graphBarThickness * i + i * graphBarPadding, barHeight);
-			
-			if (fpsHistory[i] > FlxG.updateFramerate * 0.9) color = 0xff9fe198;
-			else if (fpsHistory[i] > FlxG.updateFramerate * 0.67) color = 0xffefdea2;
-			else if (fpsHistory[i] > FlxG.updateFramerate * 0.5) color = 0xffefbda2;
-			else color = 0xffeda0a4;
+
+			if (fpsHistory[i] > FlxG.updateFramerate * 0.9)
+				color = 0xff9fe198;
+			else if (fpsHistory[i] > FlxG.updateFramerate * 0.67)
+				color = 0xffefdea2;
+			else if (fpsHistory[i] > FlxG.updateFramerate * 0.5)
+				color = 0xffefbda2;
+			else
+				color = 0xffeda0a4;
 
 			graph.graphics.lineStyle(graphBarThickness, color, 0.5);
 			graph.graphics.lineTo(100, barHeight - barHeight * fpsHistory[i] / FlxG.updateFramerate);
