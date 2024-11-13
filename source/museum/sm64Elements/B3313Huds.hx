@@ -40,8 +40,7 @@ class B3313Huds extends FlxState {
 			// swggggdgdfgdf.screenCenter(X);
 			swggggdgdfgdf.updateHitbox();
 		} else if (referenceType == "Beta") {
-			lifeCount = 0
-			2;
+			lifeCount = 02;
 			starCount = 45;
 			coinCount = 20;
 
