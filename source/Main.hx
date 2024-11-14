@@ -1,23 +1,19 @@
 import openfl.Assets;
-//import ui.Performance;
+// import ui.Performance;
 import haxe.CallStack;
 import openfl.events.UncaughtErrorEvent;
 import openfl.Lib;
 import flixel.FlxGame;
 import flixel.FlxG;
 import openfl.display.Sprite;
-
 import flixel.FlxGame;
 import flixel.FlxState;
-
 import lime.system.System;
 import sys.FileSystem;
 
 class Main extends FlxGame {
-	//public static var performance:Performance;
-
+	// public static var performance:Performance;
 	public function new() {
-
 		var gameWidth:Int = 320; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 		var gameHeight:Int = 240; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 		var initialState:Class<FlxState> = museum.Entrance; // The FlxState the game starts with.
@@ -29,19 +25,17 @@ class Main extends FlxGame {
 		#end
 
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
-	
+
 		var font = Assets.getFont("assets/fonts/EnhancedLatinJP_SM64.ttf");
 		var bitmap = Assets.getBitmapData(Paths.image('b3313HUD/icons/icon-bf-old.png'));
 
-		//performance = new Performance(font, bitmap, true, true);
-
-
+		// performance = new Performance(font, bitmap, true, true);
 
 		/*<window width="1280" height="720" if="N64_SIZE_3  N64_WIDESCREEN"/>
-		<window width="320" height="240" if="N64_SIZE"/>
-		<window width="640" height="480" if="N64_SIZE_2"/>
-		<window width="960" height="720" if="N64_SIZE_3"/>
-		<window width="1280" height="960" if="N64_SIZE_4"/>*/
+			<window width="320" height="240" if="N64_SIZE"/>
+			<window width="640" height="480" if="N64_SIZE_2"/>
+			<window width="960" height="720" if="N64_SIZE_3"/>
+			<window width="1280" height="960" if="N64_SIZE_4"/> */
 
 		#if N64_SIZE
 		gameWidth = 320;
@@ -61,7 +55,7 @@ class Main extends FlxGame {
 		#end
 
 		super(gameWidth, gameHeight, initialState);
-		//FlxG.stage.addChild(performance);
+		// FlxG.stage.addChild(performance);
 	}
 
 	function onUncaughtError(e:UncaughtErrorEvent) {

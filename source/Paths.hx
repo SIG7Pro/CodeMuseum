@@ -8,27 +8,21 @@ typedef ExtensionArray = OneOfTwo<Array<String>, ReadOnlyArray<String>>;
 class Paths {
 	public static final ROOT_DIRECTORY = 'assets';
 
-	public static final IMAGE_EXTENSIONS:ReadOnlyArray<String> = [
-		'png',
-		'jpg', 'jpeg'
-	];
+	public static final IMAGE_EXTENSIONS:ReadOnlyArray<String> = ['png', 'jpg', 'jpeg'];
 	public static final AUDIO_EXTENSIONS:ReadOnlyArray<String> = [
 		#if web
 		'mp3'
 		#else
-		'ogg',
-		'wav'
+		'ogg', 'wav'
 		#end
 	];
-	public static final FONT_EXTENSIONS:ReadOnlyArray<String> = [
-		'ttf',
-		'otf'
-	];
+	public static final FONT_EXTENSIONS:ReadOnlyArray<String> = ['ttf', 'otf'];
 
 	public static function searchWithExtensions(path:String, extensions:ExtensionArray):String {
 		for (ext in (cast extensions : Array<String>)) {
 			var extPath = '$path.$ext';
-			if (Assets.exists(extPath)) return extPath;
+			if (Assets.exists(extPath))
+				return extPath;
 		}
 		return path;
 	}
@@ -76,7 +70,8 @@ class Paths {
 	public static function font(key:String):String {
 		for (ext in FONT_EXTENSIONS) {
 			var path = '$ROOT_DIRECTORY/fonts/$key.$ext';
-			if (Assets.exists(path)) return path;
+			if (Assets.exists(path))
+				return path;
 		}
 		return '$ROOT_DIRECTORY/fonts/$key';
 	}
