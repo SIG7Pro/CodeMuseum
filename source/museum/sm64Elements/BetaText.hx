@@ -26,7 +26,7 @@ class BetaText extends FlxBitmapText {
 
 	var BetaText:FlxBitmapText;
 
-	var daLetters:String = "0123456789" + "ABCDEFGHIJKLMNOPRSTUWYZ"; // Contains some extra letters not seen in 0.2 of B3313 and some letters aren't seen there. Temporary.
+	var daLetters:String = "ABCDEFGHIKLMNOP" + '"RS' + "'TUWY"; // Some letters aren't included due to not being included/used in SM64. Numbers are to be handled in BetaNum.hx, and Informals in BetaHUDInforms.hx (things such as the X's to show the amounts of things, and whatnot.)
 
 
     /*public function new(one:String, two:String) {
@@ -38,12 +38,8 @@ class BetaText extends FlxBitmapText {
 
      public function new(insertedText:String, insertedX:Int, insertedY:Int, insertedScale:Float, insertedSpacing:Int, insertedAlign:FlxTextAlign) {
         super();
-        /*this.text = insertedText;
-        this.x = insertedX;
-        this.y = insertedY;
-        this.scale = insertedScale;*/
-        //trace('Text: $insertedText, X + Y: ($insertedX ,  $insertedY), Scale:  $insertedScale');
-		var fontConfigXNA = FlxBitmapFont.fromXNA("assets/images/b3313HUD/font/betaLetters-0.2-XNA.png", daLetters);
+
+		var fontConfigXNA = FlxBitmapFont.fromXNA("assets/images/b3313HUD/font/betaLetters-XNA.png", daLetters);
 
         BetaText = new FlxBitmapText(fontConfigXNA);
 

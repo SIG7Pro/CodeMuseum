@@ -2,7 +2,6 @@ package museum.sm64Elements;
 
 import flixel.FlxG;
 import flixel.FlxState;
-import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
@@ -15,17 +14,16 @@ import flixel.graphics.frames.FlxBitmapFont;
 
 import museum.sm64Elements.BetaText;
 
-// Explanation for how hud-types work will be included in the readme of the hudTypes folder.
-
 class B3313Huds extends FlxState
 {
+    //var swggggdgdfgdf:FlxBitmapText;
      var swggggdgdfgdf:BetaText;
 
 	var beie02Letters:String = "0123456789" + "ABCDEFGHIJKLMNOPRSTUWYZs"; // Contains some extra letters not seen in 0.2 of B3313 and some letters aren't seen there. Temporary.
 	 var backRef:FlxSprite;
 
 	 var imageLocation:String = "assets/images/b3313HUD/";
-	 var referenceType:String = "Shinshokai";
+	 var referenceType:String = "Beta";
 
 	 var lifeCount:Int;
 	 var starCount:Int;
@@ -34,11 +32,6 @@ class B3313Huds extends FlxState
 
 	override public function create()
 	{
-
-		var sprite = new FlxSprite();
-		sprite.makeGraphic(FlxG.width, FlxG.height, FlxColor.PINK);
-		sprite.screenCenter();
-		add(sprite);
 
 		backRef = new FlxSprite();
 		backRef.loadGraphic(imageLocation + "references/" + referenceType + ".png");
@@ -57,40 +50,38 @@ class B3313Huds extends FlxState
 			//swggggdgdfgdf.screenCenter(X);
 			swggggdgdfgdf.updateHitbox();
 		}
-		else{ // I thought the elseif I had here previously was causing an error, but it isn't.
-			if (referenceType == "Shinshokai"){
+		elseif (referenceType == "Beta"){
 
-				//lifeCount = 02;
-				starCount = 45;
-				coinCount = 20;
-				openSubState(new museum.sm64Elements.hudTypes.SSKHud());
+			lifeCount = 02;
+			starCount = 45;
+			coinCount = 20;
 
-				/*var purple = new BetaText("YOU ARE NOT WORTHY", 53, 104, 1.0, -4, FlxTextAlign.LEFT);
-				purple.scale.y = MathUtil.percent(61.33);
-				purple.updateHitbox();
-				purple.y = -138;
-				add(purple); // Todo: Put life counter here.*/
+			var purple = new BetaText("YOU ARE NOT WORTHY", 53, 104, 1.0, -4, FlxTextAlign.LEFT);
+			purple.scale.y = MathUtil.percent(61.33);
+			purple.updateHitbox();
+			purple.y = -138;
+			add(purple); // Todo: Put life counter here.
 
-			}
-			else
-			{
-				swggggdgdfgdf = new BetaText("SUPER ABCDEFGH BROWS", 30, 50, 1.0, -1, FlxTextAlign.CENTER);
-				swggggdgdfgdf.updateHitbox();
-			}
 		}
+		else
+		{
+			swggggdgdfgdf = new BetaText("SUPER ABCDEFGH BROWS", 30, 50, 1.0, -1, FlxTextAlign.CENTER);
+			swggggdgdfgdf.updateHitbox();
+		}
+
 		//swggggdgdfgdf.alignment = FlxTextAlign.LEFT;
-		//add(swggggdgdfgdf);
+		add(swggggdgdfgdf);
 
 
 
-		/*#if debug
+		#if debug
 		FlxG.watch.add(swggggdgdfgdf, "text");
 		FlxG.watch.add(swggggdgdfgdf, "x");
 		FlxG.watch.add(swggggdgdfgdf, "y");
 		FlxG.watch.add(swggggdgdfgdf, "insertedScale");
 		FlxG.watch.add(swggggdgdfgdf, "insertedPadding");
 		FlxG.watch.add(swggggdgdfgdf, "insertedAlign");
-		#end*/
+		#end
 
 
 
