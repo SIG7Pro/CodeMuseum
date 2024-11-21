@@ -50,11 +50,6 @@ var isPlayerWet:Bool = false; // Checks if the player is wet. Should be false un
 
 var hpChange:Int;
 
-//var timer:FlxTimer;
-var timer2:FlxTimer;
-
-var recoveryTimer:FlxTimer; // Time it takes for health to go back up.
-
 public var taken:Int; //For Damage.
 public var hpMoveType:Int; // The 3 types.
 
@@ -131,18 +126,12 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 			//FlxG.watch.add(health, "HP");
 
-			timer2 = new FlxTimer();
-			//timer2.start(1, bounce, 0);
-
-			recoveryTimer = new FlxTimer(); // Timer used to recover health.
-
 	}
 
 
 	override function update(elapsed:Float){
-		healthCheck();
+		configHPCurAnim();
 		showHPCount.text = curHealth + "";
-		//timer2.start(1, bounce, 2);
 		if (FlxG.keys.justPressed.UP){
 
 			hpRise(1);
@@ -215,17 +204,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 	}
 
 
-
-	function healthCheck(){
-		configHPCurAnim();
-
-		if (curHealth > 8){
-			recoveryTimer.start(5, bounce, curHealth - 8);
-		}
-
-	}
-
-
 	function bounce(_:FlxTimer):Void{
 
 	// Example function for timers.
@@ -257,13 +235,13 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			case 0:{ // Offscreen.
 
 
-			if (curHealth > 7){
+			if (curHealth > 7 && isPlayerWet == false){
 				trace("Movetype 0 Initiated.");
 				var returnToSender:FlxTimer = new FlxTimer();
 				returnToSender.start(2, sendUp, 0);
 				trace("MT0 Code Over.");
 			}else{
-				trace("This shouldn't tween if the health is below 8. If so, then dang.");
+				trace("Either the player's health is 8+ and/or are wet.");
 			}
 
 
@@ -271,7 +249,9 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 					}
 			case 1:{ // Middle/default.
 
-				FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckFloat}, 0.1, {type: FlxTweenType.PERSIST});
+					//if (isPlayerWet == false){
+					FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckFloat}, 0.1, {type: FlxTweenType.PERSIST});
+					//}
 
 				}
 			case 2:{ // Bottom/damage
