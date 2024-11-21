@@ -108,8 +108,8 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			add(coinIcon);
 
 			hpTrackah = new HealthMeter("sonk", 108, hpTrckHighest, 170, -91, 1.0);
-			// (meterType:String, insertedX:Int, insertedY:Int, hideX:Int, hideY:Int, insertedScale:Float)
 			hpTrackah.updateHitbox();
+			hpTrackah.alpha = 0.84; //Note: this was the closest thing I could get to the transparency. Used a stage with a solid color BG to compare. Very close. 86.5 percent for BRoll1.
 			add(hpTrackah);
 
 			/*FlxG.watch.add(hpTrackah, "text");
