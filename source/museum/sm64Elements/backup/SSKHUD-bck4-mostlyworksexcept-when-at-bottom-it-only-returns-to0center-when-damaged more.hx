@@ -59,7 +59,6 @@ public var taken:Int; //For Damage.
 public var hpMoveType:Int; // The 3 types.
 
 var a:FlxTween; //shoutouts to Cobalt
-var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the bottom and more HP is lost, then it quickly goes to the center.
 
 	override function create() {
 
@@ -141,7 +140,7 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 	override function update(elapsed:Float){
 		healthCheck();
-		showHPCount.text = curHealth + "";
+		showHPCount.text = curHealth + "\n" + hpTrackah.y;
 		//timer2.start(1, bounce, 2);
 		if (FlxG.keys.justPressed.UP){
 
@@ -164,29 +163,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			curHealth = 0;
 		 }
 		// Essential code!
-
-
-
-
-		if (curHealth < 8 && hpTrackah.y > hpTrckLowest - 1){
-		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			var gotoFloat:FlxTimer = new FlxTimer();
-			gotoFloat.start(2, sendCenter, 0);
-
-				if (gotoFloat.finished == true){
-				trace("Test");
-				gotoFloat.active = false;
-				gotoFloat.cancel();
-				}
-		}else if (curHealth == 8 && hpTrackah.y == hpTrckFloat){
-			trace("Full health. Going up!");
-			moveHP(0);
-
-		}
-
-
-
-
 
 	}
 
@@ -278,7 +254,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 				FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.1, {type: FlxTweenType.PERSIST});
 
-
 				/*if (curHealth < 8){ // Less than 8 HP.
 					/*trace("Movetype 1 Initiated.");
 					var returnToSender:FlxTimer = new FlxTimer();
@@ -310,18 +285,12 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 	function hpLower(hpChange:Int):Void{
 
 	// this
-	if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == true){
+	if (curHealth == 8 && hpTrackah.y < hpTrckFloat){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
 			//trace("HP Meter going up! (Position 1)");
 			// go to hpTrckFloat
 			moveHP(2);
-	}else if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == false){
-		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
-			FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.15,);
 	}
-
 
 	trace("Lowered by: " + hpChange);
 	curHealth -= hpChange;
@@ -335,9 +304,7 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			moveHP(1);
 		}
 
-		//if (curHealth < 8){
-			
-		//}
+
 
 
 
@@ -405,9 +372,11 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 		function sendCenter(_:FlxTimer):Void{
 		trace("SendCenter Initiated.");
+		trace(hpTrackah.y);
 
 			if (curHealth < 8){
 				moveHP(1);
+				trace("Moved.");
 			}
 
 		}
