@@ -52,7 +52,7 @@ class B3313Huds extends FlxState
 		var fontXNA = FlxBitmapFont.fromXNA(imageLocation + "font/betaLetters-0.2-XNA.png", beie02Letters);
 
 
-		if (referenceType == "Not Worthy (Attempt)"){
+		if (referenceType == "Shoshinkai"){
 			swggggdgdfgdf = new BetaText("YOU ARE WORTHY", 51, 104, 1.0, -4, FlxTextAlign.CENTER);
 			//swggggdgdfgdf.screenCenter(X);
 			swggggdgdfgdf.updateHitbox();

@@ -153,9 +153,9 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 				coins -= 1;
 				}
 		#end
-		coinCounter.text = '$coins';
-		starCounter.text = '$stars';
-		lifeCounter.text = '$lives';
+		coinCount.text = '$coins';
+		starCount.text = '$stars';
+		lifeCount.text = '$lives';
 
 		if (coins > 99){
 		coins = (coins - 99);
