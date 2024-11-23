@@ -25,7 +25,7 @@ class B3313Huds extends FlxState
 	 var backRef:FlxSprite;
 
 	 var imageLocation:String = "assets/images/b3313HUD/";
-	 var referenceType:String = "Shinshokai";
+	 var referenceType:String = "Not Worthy (Attempt)";
 
 	 var lifeCount:Int;
 	 var starCount:Int;
@@ -42,7 +42,7 @@ class B3313Huds extends FlxState
 
 		backRef = new FlxSprite();
 		backRef.loadGraphic(imageLocation + "references/" + referenceType + ".png");
-		backRef.screenCenter();
+		//backRef.screenCenter();
 		backRef.alpha = 0.5;
 		add(backRef);
 
@@ -53,12 +53,11 @@ class B3313Huds extends FlxState
 
 
 		if (referenceType == "Not Worthy (Attempt)"){
-			swggggdgdfgdf = new BetaText("YOU ARE NOT WORTHY", 53, 104, 1.0, -4, FlxTextAlign.CENTER);
+			swggggdgdfgdf = new BetaText("YOU ARE WORTHY", 51, 104, 1.0, -4, FlxTextAlign.CENTER);
 			//swggggdgdfgdf.screenCenter(X);
 			swggggdgdfgdf.updateHitbox();
 		}
-		else{ // I thought the elseif I had here previously was causing an error, but it isn't.
-			if (referenceType == "Shinshokai"){
+		else if (referenceType == "Shoshinkai"){
 
 				//lifeCount = 02;
 				starCount = 45;
@@ -71,15 +70,26 @@ class B3313Huds extends FlxState
 				purple.y = -138;
 				add(purple); // Todo: Put life counter here.*/
 
-			}
-			else
-			{
+		}
+		else if (referenceType == "B-ROLL"){
+				openSubState(new museum.sm64Elements.hudTypes.BRollHuds());
+		}
+		else if (referenceType == "December (Attempt)"){
+				openSubState(new museum.sm64Elements.hudTypes.December95());
+		}
+		else if (referenceType == "E3 1996"){
+				openSubState(new museum.sm64Elements.hudTypes.E396());
+		}
+		else
+		{
 				swggggdgdfgdf = new BetaText("SUPER ABCDEFGH BROWS", 30, 50, 1.0, -1, FlxTextAlign.CENTER);
 				swggggdgdfgdf.updateHitbox();
-			}
 		}
-		//swggggdgdfgdf.alignment = FlxTextAlign.LEFT;
-		//add(swggggdgdfgdf);
+
+		if (referenceType == "Not Worthy (Attempt)"){
+		swggggdgdfgdf.alignment = FlxTextAlign.LEFT;
+		add(swggggdgdfgdf);
+		}
 
 
 

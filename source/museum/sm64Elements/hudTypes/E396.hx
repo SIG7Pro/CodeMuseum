@@ -20,97 +20,103 @@ import museum.sm64Elements.HealthMeter; // Health Meter
 
 import flixel.util.FlxTimer;
 
-class SSKHud extends FlxSubState {
+class E396 extends FlxSubState {
 
 var lives:Int = 2;
-var stars:Int = 44;
-var coins:Int = 0; // Stats
+var stars:Int = 48;
+var coins:Int = 95; // Stats
 
-var lifeCount:BetaNum;
-var starCount:BetaNum;
-var coinCount:BetaNum; // Stat counters.
-
+var lifeCounter:BetaNum;
+var starCounter:BetaNum;
+var coinCounter:BetaNum;
 var lifeCross:BetaInfs;
 var starCross:BetaInfs;
-var coinCross:BetaInfs; // Stat fancifiers.
-
+var coinCross:BetaInfs;
 var lifeIcon:StatIcons;
 var starIcon:StatIcons;
-var coinIcon:StatIcons; // Stat icons.
-
-var hpTrackah:HealthMeter; // Health Meter
-var curHealth:Int = 8; // Health (Max: 8, Min: 0)
-
-var hpTrckLowest:Int = 41; // Lowest point the HP meter can go to.
-var hpTrckFloat:Int = 7; // Standard location for the HP meter.)
-var hpTrckHighest:Int; // Highetst point the HP meter can go to. (Hidden.)
-
-var isPlayerWet:Bool = false; // Checks if the player is wet. Should be false unless in a water stage. Function provided for changing though.
-
+var coinIcon:StatIcons;
+var hpTrackah:HealthMeter;
+var curHealth:Int = 8;
+var hpTrckLowest:Int = 41;
+var hpTrckFloat:Int = 8;
+var hpTrckHighest:Int;
+var isPlayerWet:Bool = false;
 var hpChange:Int;
-public var hpMoveType:Int; // The 3 types.
+public var hpMoveType:Int;
 
 var a:FlxTween; //shoutouts to Cobalt
 var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the bottom and more HP is lost, then it quickly goes to the center.
+
+/*
+
+Todo:
+
+Make a way to format stat texts.
+2 -> 02
+12 -> 12 (stays the same)
+
+
+*/
+
+
 
 	override function create() {
 
 	hpTrckHighest = 0 - (hpTrckFloat * 8);
 	trace(hpTrckHighest);
 
-			var numberStyle:String = "betaNums"; // Placed in the create function, as it isn't intended to change.
-			var xStyle:String = "betaType";
+			var numberStyle:String = "finalNums"; // Placed in the create function, as it isn't intended to change.
 
-			lifeCount = new BetaNum(numberStyle, lives, 60, 14, 1.0, -4, FlxTextAlign.LEFT);
-			lifeCount.updateHitbox();
-			add(lifeCount);
+			lifeCounter = new BetaNum("finalNums", lives, 54, 14, 1.0, -4, FlxTextAlign.LEFT);
+			lifeCounter.updateHitbox();
+			add(lifeCounter);
 
-			lifeCross = new BetaInfs("betaCrossSSK", 46, 14, 1.0);
+			lifeCross = new BetaInfs("finalCross", 38, 14, 1.0);
 			lifeCross.updateHitbox();
 			add(lifeCross);
 
-			lifeIcon = new StatIcons("mario", 30, 14, 1.0);
+			lifeIcon = new StatIcons("mario", 22, 14, 1.0);
 			lifeIcon.updateHitbox();
 			add(lifeIcon);
 
 			//timer = new FlxTimer();
 
 
-			starCount = new BetaNum(numberStyle, stars, 200, 14, 1.0, -4, FlxTextAlign.LEFT);
-			starCount.updateHitbox();
-			add(starCount);
+			starCounter = new BetaNum(numberStyle, stars, 275, 14, 1.0, -4, FlxTextAlign.LEFT);
+			starCounter.updateHitbox();
+			add(starCounter);
 
-			starCross = new BetaInfs("betaCrossSSK", 186, 14, 1.0);
+			starCross = new BetaInfs("finalCross", 262, 14, 1.0);
 			starCross.updateHitbox();
 			add(starCross);
 
-			starIcon = new StatIcons("star", 170, 14, 1.0);
+			starIcon = new StatIcons("star-alt", 246, 14, 1.0);
 			starIcon.updateHitbox();
 			add(starIcon);
 
-			coinCount = new BetaNum(numberStyle, coins, 200, 31, 1.0, -4, FlxTextAlign.LEFT);
-			coinCount.updateHitbox();
-			add(coinCount);
+			coinCounter = new BetaNum(numberStyle, coins, 196, 14, 1.0, -4, FlxTextAlign.LEFT);
+			coinCounter.updateHitbox();
+			add(coinCounter);
 
-			coinCross = new BetaInfs("betaCrossSSK", 186, 31, 1.0);
+			coinCross = new BetaInfs("finalCross", 183, 14, 1.0);
 			coinCross.updateHitbox();
 			add(coinCross);
 
-			coinIcon = new StatIcons("coin", 170, 31, 1.0);
+			coinIcon = new StatIcons("coin", 169 - 2, 14, 1.0);
 			coinIcon.updateHitbox();
 			add(coinIcon);
 
-			hpTrackah = new HealthMeter("sonk", 108, hpTrckHighest, 170, -91, 1.0);
+			hpTrackah = new HealthMeter('finalgame', 108, hpTrckHighest, 170, -91, 1.0);
 			hpTrackah.updateHitbox();
-			hpTrackah.alpha = 0.84; //Note: this was the closest thing I could get to the transparency. Used a stage with a solid color BG to compare.
+			// There's no transparency for the HP meter of this kind.
 			add(hpTrackah);
 
-			/*FlxG.watch.add(hpTrackah, "text");
+
 			FlxG.watch.add(hpTrackah, "x");
 			FlxG.watch.add(hpTrackah, "y");
 
-			FlxG.watch.add(starIcon, "text");
-			FlxG.watch.add(starIcon, "x");
+			FlxG.watch.add(lifeCounter, "text");
+			/*FlxG.watch.add(starIcon, "x");
 			FlxG.watch.add(starIcon, "y");
 
 			FlxG.watch.add(coinIcon, "text");
@@ -120,7 +126,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			//FlxG.watch.add(health, "HP");
 
 	}
-
 
 	function alterStats(){
 
@@ -180,6 +185,8 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 		}
 
+
+
 		// Essential code!
 		if (curHealth > 8) {
 			curHealth = 8;
@@ -189,6 +196,7 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 		 }else if (curHealth < 0) {
 			curHealth = 0;
 		 }
+
 		// Essential code!
 
 
@@ -200,12 +208,12 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			gotoFloat.start(2, sendCenter, 0);
 
 				if (gotoFloat.finished == true){
-				trace("Test");
+				//trace("Test");
 				gotoFloat.active = false;
 				gotoFloat.cancel();
 				}
 		}else if (curHealth == 8 && hpTrackah.y == hpTrckFloat){
-			trace("Full health. Going up!");
+			//trace("Full health. Going up!");
 			moveHP(0);
 
 		}
@@ -273,12 +281,12 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 
 			if (curHealth > 7 && isPlayerWet == false){
-				trace("Movetype 0 Initiated.");
+				//trace("Movetype 0 Initiated.");
 				var returnToSender:FlxTimer = new FlxTimer();
 				returnToSender.start(2, sendUp, 0);
-				trace("MT0 Code Over.");
+				//trace("MT0 Code Over.");
 			}else{
-				trace("Either the player's health is 8+ and/or are wet.");
+				//trace("Either the player's health is 8+ and/or are wet.");
 			}
 
 
@@ -368,7 +376,7 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 	curHealth += hpChange;
 
 		if (curHealth == 8 && hpTrackah.y == hpTrckFloat){
-			trace("Full health. Going up!");
+			//trace("Full health. Going up!");
 			moveHP(0);
 
 		}
@@ -385,15 +393,15 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			if (curHealth == 8){
 			a = FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckHighest}, 0.1);
 
-			trace("Tween should be over..");
+			//trace("Tween should be over..");
 
 				if (a.finished == true || hpTrackah.y == hpTrckHighest){
 				a.cancel();
-				trace("Tween cancelled. (Unneeded.)");
+				//trace("Tween cancelled. (Unneeded.)");
 				a.cancelChain();
-				trace("Tween cancelled from chain. (Unneeded.)");
+				//trace("Tween cancelled from chain. (Unneeded.)");
 				a.destroy();
-				trace("Tween destroyed.");
+				//trace("Tween destroyed.");
 				}
 			}
 
@@ -421,7 +429,7 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 		}*/
 
 		function sendCenter(_:FlxTimer):Void{
-		trace("SendCenter Initiated.");
+		//trace("SendCenter Initiated.");
 
 			if (curHealth < 8){
 				moveHP(1);

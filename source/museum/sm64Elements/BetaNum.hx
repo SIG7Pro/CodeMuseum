@@ -13,7 +13,7 @@ class BetaNum extends FlxBitmapText {
 
     /*Note: the numbers lack minus signs, but most people won't really need those anyway.*/
 
-	public var numberType:String = "betaNums"; // In B3313, there's a chance you get a beta styled hud (Shinshokai, the B-Roll huds) and there's a chance to get a pre-final hud (Like the Demo 1995, E3 huds). This allows you to configure it from either betaNums or finalNums. Default is betaNums.
+	public var numberType:String/* = "betaNums"*/; // In B3313, there's a chance you get a beta styled hud (Shinshokai, the B-Roll huds) and there's a chance to get a pre-final hud (Like the Demo 1995, E3 huds). This allows you to configure it from either betaNums or finalNums. Default is betaNums.
 	public var insertedText:Int;
     public var insertedX:Int;
 	public var insertedY:Int;
@@ -29,8 +29,9 @@ class BetaNum extends FlxBitmapText {
      public function new(numberType:String, insertedText:Int, insertedX:Int, insertedY:Int, insertedScale:Float, insertedSpacing:Int, insertedAlign:FlxTextAlign) {
         super();
 
-        if (numberType != "betaNums" || numberType != "finalNums"){ // Note, it's possible to add more types of numbers by adding the image and a thing for it here.
+        if (numberType != "betaNums" && numberType != "finalNums"){ // Note, it's possible to add more types of numbers by adding the image and a thing for it here.
         // For those smarter saying that I could've just detected if it was null/invalid, I say that the line was getting too long.
+        // Note, this used to have an or/|| check instead of an and/&& check. This was since it'd revert to betaNums if it was set to finalNums. The OG logic was more like if it wasn't betaNums (like finalnums) then it would change to betaNums, though it's been fixed.
 			numberType = "betaNums";
         }
 

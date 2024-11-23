@@ -20,38 +20,41 @@ import museum.sm64Elements.HealthMeter; // Health Meter
 
 import flixel.util.FlxTimer;
 
-class SSKHud extends FlxSubState {
+import Std;
+
+class BRollHuds extends FlxSubState {
 
 var lives:Int = 2;
-var stars:Int = 44;
-var coins:Int = 0; // Stats
+var stars:Int = 45;
+var coins:Int = 20; // Stats
 
-var lifeCount:BetaNum;
-var starCount:BetaNum;
-var coinCount:BetaNum; // Stat counters.
+var lifeStr:String;
+var starStr:String;
+var coinStr:String; // Stats (Strings)
 
+var lifeCounter:BetaNum;
+var starCounter:BetaNum;
+var coinCounter:BetaNum;
 var lifeCross:BetaInfs;
 var starCross:BetaInfs;
-var coinCross:BetaInfs; // Stat fancifiers.
-
+var coinCross:BetaInfs;
 var lifeIcon:StatIcons;
 var starIcon:StatIcons;
-var coinIcon:StatIcons; // Stat icons.
-
-var hpTrackah:HealthMeter; // Health Meter
-var curHealth:Int = 8; // Health (Max: 8, Min: 0)
-
-var hpTrckLowest:Int = 41; // Lowest point the HP meter can go to.
-var hpTrckFloat:Int = 7; // Standard location for the HP meter.)
-var hpTrckHighest:Int; // Highetst point the HP meter can go to. (Hidden.)
-
-var isPlayerWet:Bool = false; // Checks if the player is wet. Should be false unless in a water stage. Function provided for changing though.
-
+var coinIcon:StatIcons;
+var hpTrackah:HealthMeter;
+var curHealth:Int = 8;
+var hpTrckLowest:Int = 41;
+var hpTrckFloat:Int = 7;
+var hpTrckHighest:Int;
+var isPlayerWet:Bool = false;
 var hpChange:Int;
-public var hpMoveType:Int; // The 3 types.
+public var hpMoveType:Int;
 
 var a:FlxTween; //shoutouts to Cobalt
 var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the bottom and more HP is lost, then it quickly goes to the center.
+
+var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So far just broll1 and broll2.
+
 
 	override function create() {
 
@@ -59,13 +62,12 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 	trace(hpTrckHighest);
 
 			var numberStyle:String = "betaNums"; // Placed in the create function, as it isn't intended to change.
-			var xStyle:String = "betaType";
 
-			lifeCount = new BetaNum(numberStyle, lives, 60, 14, 1.0, -4, FlxTextAlign.LEFT);
-			lifeCount.updateHitbox();
-			add(lifeCount);
+			lifeCounter = new BetaNum(numberStyle, lives, 58, 14, 1.0, -4, FlxTextAlign.LEFT);
+			lifeCounter.updateHitbox();
+			add(lifeCounter);
 
-			lifeCross = new BetaInfs("betaCrossSSK", 46, 14, 1.0);
+			lifeCross = new BetaInfs("betaCross", 46, 14, 1.0);
 			lifeCross.updateHitbox();
 			add(lifeCross);
 
@@ -76,11 +78,11 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			//timer = new FlxTimer();
 
 
-			starCount = new BetaNum(numberStyle, stars, 200, 14, 1.0, -4, FlxTextAlign.LEFT);
-			starCount.updateHitbox();
-			add(starCount);
+			starCounter = new BetaNum(numberStyle, stars, 198, 14, 1.0, -4, FlxTextAlign.LEFT);
+			starCounter.updateHitbox();
+			add(starCounter);
 
-			starCross = new BetaInfs("betaCrossSSK", 186, 14, 1.0);
+			starCross = new BetaInfs("betaCross", 186, 14, 1.0);
 			starCross.updateHitbox();
 			add(starCross);
 
@@ -88,11 +90,11 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			starIcon.updateHitbox();
 			add(starIcon);
 
-			coinCount = new BetaNum(numberStyle, coins, 200, 31, 1.0, -4, FlxTextAlign.LEFT);
-			coinCount.updateHitbox();
-			add(coinCount);
+			coinCounter = new BetaNum(numberStyle, coins, 198, 31, 1.0, -4, FlxTextAlign.LEFT);
+			coinCounter.updateHitbox();
+			add(coinCounter);
 
-			coinCross = new BetaInfs("betaCrossSSK", 186, 31, 1.0);
+			coinCross = new BetaInfs("betaCross", 186, 31, 1.0);
 			coinCross.updateHitbox();
 			add(coinCross);
 
@@ -100,17 +102,17 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			coinIcon.updateHitbox();
 			add(coinIcon);
 
-			hpTrackah = new HealthMeter("sonk", 108, hpTrckHighest, 170, -91, 1.0);
+			hpTrackah = new HealthMeter('broll$meterType', 108, hpTrckHighest, 170, -91, 1.0);
 			hpTrackah.updateHitbox();
-			hpTrackah.alpha = 0.84; //Note: this was the closest thing I could get to the transparency. Used a stage with a solid color BG to compare.
+			hpTrackah.alpha = 0.865; //Note: this was the closest thing I could get to the transparency. Used the castle grounds for reference. (The cave.)
 			add(hpTrackah);
 
-			/*FlxG.watch.add(hpTrackah, "text");
+
 			FlxG.watch.add(hpTrackah, "x");
 			FlxG.watch.add(hpTrackah, "y");
 
-			FlxG.watch.add(starIcon, "text");
-			FlxG.watch.add(starIcon, "x");
+			FlxG.watch.add(lifeCounter, "text");
+			/*FlxG.watch.add(starIcon, "x");
 			FlxG.watch.add(starIcon, "y");
 
 			FlxG.watch.add(coinIcon, "text");
@@ -121,6 +123,39 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 	}
 
+	function updateVisibleStats(){
+
+	if (lives < 10){
+			lifeStr = "0" + lives;
+		}else if (lives > 9){
+			lifeStr = '$lives';
+		}
+		lifeCounter.text = lifeStr;
+		//trace(lifeCounter.text = lifeStr);
+
+	if (stars < 10){
+			starStr = "0" + stars;
+		}else if (stars > 9){
+			starStr = '$stars';
+		}
+		starCounter.text = starStr;
+		//trace(starCounter.text = starStr);
+	if (stars < 0) {
+			stars = 0; // Nobody should be getting negative stars. Even then, the number class lacks a minus symbol.
+		 }
+
+	if (coins < 10){
+			coinStr = "0" + coins;
+		}else if (coins > 9){
+			coinStr = '$coins';
+		}
+		coinCounter.text == lifeStr;
+		//trace(coinCounter.text = coinStr);
+	if (coins < 0) {
+			coins = 0;
+		 }
+
+	}
 
 	function alterStats(){
 
@@ -153,17 +188,14 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 				coins -= 1;
 				}
 		#end
-		coinCounter.text = '$coins';
+		/*coinCounter.text = '$coins';
 		starCounter.text = '$stars';
-		lifeCounter.text = '$lives';
+		lifeCounter.text = '$lives';*/
 
 		if (coins > 99){
 		coins = (coins - 99);
 		lives += 1;
 		}
-
-
-
 	}
 
 	override function update(elapsed:Float){
@@ -189,6 +221,20 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 		 }else if (curHealth < 0) {
 			curHealth = 0;
 		 }
+
+		 updateVisibleStats();
+
+		// Checks if the life text is below 10 and extends it if so.
+		 /*if (starCounter.text == "" + stars && stars < 10) {
+			starCounter.text = "0" + stars;
+		 }else{
+			starCounter.text = "" + stars;
+		 }*/
+
+
+
+		//trace(lives < 10);
+		//trace(lifeStr.length);
 		// Essential code!
 
 
