@@ -59,7 +59,7 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 	override function create() {
 
 	hpTrckHighest = 0 - (hpTrckFloat * 8);
-	trace(hpTrckHighest);
+	//trace(hpTrckHighest);
 
 			var numberStyle:String = "betaNums"; // Placed in the create function, as it isn't intended to change.
 
@@ -131,7 +131,7 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 			lifeStr = '$lives';
 		}
 		lifeCounter.text = lifeStr;
-		//trace(lifeCounter.text = lifeStr);
+		////trace(lifeCounter.text = lifeStr);
 
 	if (stars < 10){
 			starStr = "0" + stars;
@@ -139,7 +139,7 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 			starStr = '$stars';
 		}
 		starCounter.text = starStr;
-		//trace(starCounter.text = starStr);
+		////trace(starCounter.text = starStr);
 	if (stars < 0) {
 			stars = 0; // Nobody should be getting negative stars. Even then, the number class lacks a minus symbol.
 		 }
@@ -150,7 +150,7 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 			coinStr = '$coins';
 		}
 		coinCounter.text == lifeStr;
-		//trace(coinCounter.text = coinStr);
+		////trace(coinCounter.text = coinStr);
 	if (coins < 0) {
 			coins = 0;
 		 }
@@ -188,9 +188,6 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 				coins -= 1;
 				}
 		#end
-		/*coinCounter.text = '$coins';
-		starCounter.text = '$stars';
-		lifeCounter.text = '$lives';*/
 
 		if (coins > 99){
 		coins = (coins - 99);
@@ -223,18 +220,6 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 		 }
 
 		 updateVisibleStats();
-
-		// Checks if the life text is below 10 and extends it if so.
-		 /*if (starCounter.text == "" + stars && stars < 10) {
-			starCounter.text = "0" + stars;
-		 }else{
-			starCounter.text = "" + stars;
-		 }*/
-
-
-
-		//trace(lives < 10);
-		//trace(lifeStr.length);
 		// Essential code!
 
 
@@ -246,19 +231,15 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 			gotoFloat.start(2, sendCenter, 0);
 
 				if (gotoFloat.finished == true){
-				trace("Test");
+				////trace("Test");
 				gotoFloat.active = false;
 				gotoFloat.cancel();
 				}
 		}else if (curHealth == 8 && hpTrackah.y == hpTrckFloat){
-			trace("Full health. Going up!");
+			////trace("Full health. Going up!");
 			moveHP(0);
 
 		}
-
-
-
-
 
 	}
 
@@ -286,20 +267,6 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 			}
 	}
 
-
-	function bounce(_:FlxTimer):Void{
-
-	// Example function for timers.
-
-	// Intentions for this: tween to top if full and not wet.
-	// Tween
-	// 2 seconds for HP bar to go away when full HP
-	// Looking at a slightly diff power meter thing (BRoll1) gives the farthest down Y to be 41, and the standard Y to be 7.
-	// The one prev set in here seems to be at the bottom-most. Taking note of this.
-	trace("Function working");
-
-	}
-
 	function sendUp1(_:FlxTimer):Void{
 		// Function that triggers the HP thing to go to back up after a few secs.
 		// I'm not good with timers.
@@ -319,51 +286,23 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 
 
 			if (curHealth > 7 && isPlayerWet == false){
-				trace("Movetype 0 Initiated.");
+				////trace("Movetype 0 Initiated.");
 				var returnToSender:FlxTimer = new FlxTimer();
 				returnToSender.start(2, sendUp, 0);
-				trace("MT0 Code Over.");
+				////trace("MT0 Code Over.");
 			}else{
-				trace("Either the player's health is 8+ and/or are wet.");
+				////trace("Either the player's health is 8+ and/or are wet.");
 			}
 
 
 
 					}
 			case 1:{ // Middle/default.
-
-					//if (isPlayerWet == false){
 					FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckFloat}, 0.1, {type: FlxTweenType.PERSIST});
-					//}
-
 				}
 			case 2:{ // Bottom/damage
 
 				FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.1, {type: FlxTweenType.PERSIST});
-
-
-				/*if (curHealth < 8){ // Less than 8 HP.
-					/*trace("Movetype 1 Initiated.");
-					var returnToSender:FlxTimer = new FlxTimer();
-					returnToSender.start(2, sendUp, 0);
-					trace("MT0 Code Over.");
-				}else if (curHealth == 8){ // 8 HP.
-
-					moveHP(0);
-					trace("Up!");
-				//
-
-				var gotoFloat:FlxTimer = new FlxTimer();
-				gotoFloat.start(2, sendCenter, 0);
-
-				//moveHP(1);
-
-				}else{
-					trace("Where would this trace go?");
-				}*/
-
-
-
 			}
 
 		}
@@ -375,32 +314,22 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 	// this
 	if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == true){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
 			moveHP(2);
 	}else if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == false){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
 			FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.15,);
 	}
 
 
-	trace("Lowered by: " + hpChange);
+	////trace("Lowered by: " + hpChange);
 	curHealth -= hpChange;
 
 
 
 		if (curHealth < 8 && hpTrackah.y == hpTrckLowest){
 		// If it's set to check for the Y value under the var, then it instead goes to area 1 instead of 2 first.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
 			moveHP(1);
 		}
-
-		//if (curHealth < 8){
-			
-		//}
 
 
 
@@ -410,11 +339,11 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 	function hpRise(hpChange:Int):Void{
 
 	// this
-	trace("Upped by: " + hpChange);
+	//trace("Upped by: " + hpChange);
 	curHealth += hpChange;
 
 		if (curHealth == 8 && hpTrackah.y == hpTrckFloat){
-			trace("Full health. Going up!");
+			////trace("Full health. Going up!");
 			moveHP(0);
 
 		}
@@ -424,50 +353,29 @@ var meterType:Int = 1; // Checks which version of the B-Roll hud is using. So fa
 
 
 		function sendUp(_:FlxTimer):Void{
-		trace("SendUP Initiated.");
+		////trace("SendUP Initiated.");
 		// Function that triggers the HP thing to go to back up after a few secs.
 		// I'm not good with timers.
 
 			if (curHealth == 8){
 			a = FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckHighest}, 0.1);
 
-			trace("Tween should be over..");
+			//trace("Tween should be over..");
 
 				if (a.finished == true || hpTrackah.y == hpTrckHighest){
 				a.cancel();
-				trace("Tween cancelled. (Unneeded.)");
+				////trace("Tween cancelled. (Unneeded.)");
 				a.cancelChain();
-				trace("Tween cancelled from chain. (Unneeded.)");
+				////trace("Tween cancelled from chain. (Unneeded.)");
 				a.destroy();
-				trace("Tween destroyed.");
+				////trace("Tween destroyed.");
 				}
 			}
 
 		}
 
-		/*// Copy of the above but slightly ajusted so it's likely just as band-aided.
 		function sendCenter(_:FlxTimer):Void{
-		trace("SendCenter Initiated.");
-
-			if (curHealth < 8){
-			a = FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckFloat}, 0.1);
-
-			trace("Tween should be over..");
-
-				if (a.finished == true || hpTrackah.y == hpTrckHighest){
-				a.cancel();
-				trace("Tween cancelled. (Unneeded.)");
-				a.cancelChain();
-				trace("Tween cancelled from chain. (Unneeded.)");
-				a.destroy();
-				trace("Tween destroyed.");
-				}
-			}
-
-		}*/
-
-		function sendCenter(_:FlxTimer):Void{
-		trace("SendCenter Initiated.");
+		////trace("SendCenter Initiated.");
 
 			if (curHealth < 8){
 				moveHP(1);

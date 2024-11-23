@@ -47,19 +47,6 @@ public var hpMoveType:Int;
 var a:FlxTween; //shoutouts to Cobalt
 var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the bottom and more HP is lost, then it quickly goes to the center.
 
-/*
-
-Todo:
-
-Make a way to format stat texts.
-2 -> 02
-12 -> 12 (stays the same)
-
-
-*/
-
-
-
 	override function create() {
 
 	hpTrckHighest = 0 - (hpTrckFloat * 8);
@@ -258,7 +245,7 @@ Make a way to format stat texts.
 	// 2 seconds for HP bar to go away when full HP
 	// Looking at a slightly diff power meter thing (BRoll1) gives the farthest down Y to be 41, and the standard Y to be 7.
 	// The one prev set in here seems to be at the bottom-most. Taking note of this.
-	trace("Function working");
+	//trace("Function working");
 
 	}
 
@@ -302,30 +289,6 @@ Make a way to format stat texts.
 			case 2:{ // Bottom/damage
 
 				FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.1, {type: FlxTweenType.PERSIST});
-
-
-				/*if (curHealth < 8){ // Less than 8 HP.
-					/*trace("Movetype 1 Initiated.");
-					var returnToSender:FlxTimer = new FlxTimer();
-					returnToSender.start(2, sendUp, 0);
-					trace("MT0 Code Over.");
-				}else if (curHealth == 8){ // 8 HP.
-
-					moveHP(0);
-					trace("Up!");
-				//
-
-				var gotoFloat:FlxTimer = new FlxTimer();
-				gotoFloat.start(2, sendCenter, 0);
-
-				//moveHP(1);
-
-				}else{
-					trace("Where would this trace go?");
-				}*/
-
-
-
 			}
 
 		}
@@ -337,13 +300,9 @@ Make a way to format stat texts.
 	// this
 	if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == true){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
 			moveHP(2);
 	}else if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == false){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
 			FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.15,);
 	}
 
@@ -355,14 +314,8 @@ Make a way to format stat texts.
 
 		if (curHealth < 8 && hpTrackah.y == hpTrckLowest){
 		// If it's set to check for the Y value under the var, then it instead goes to area 1 instead of 2 first.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
 			moveHP(1);
 		}
-
-		//if (curHealth < 8){
-			
-		//}
 
 
 
@@ -406,27 +359,6 @@ Make a way to format stat texts.
 			}
 
 		}
-
-		/*// Copy of the above but slightly ajusted so it's likely just as band-aided.
-		function sendCenter(_:FlxTimer):Void{
-		trace("SendCenter Initiated.");
-
-			if (curHealth < 8){
-			a = FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckFloat}, 0.1);
-
-			trace("Tween should be over..");
-
-				if (a.finished == true || hpTrackah.y == hpTrckHighest){
-				a.cancel();
-				trace("Tween cancelled. (Unneeded.)");
-				a.cancelChain();
-				trace("Tween cancelled from chain. (Unneeded.)");
-				a.destroy();
-				trace("Tween destroyed.");
-				}
-			}
-
-		}*/
 
 		function sendCenter(_:FlxTimer):Void{
 		//trace("SendCenter Initiated.");

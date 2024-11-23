@@ -104,15 +104,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			FlxG.watch.add(hpTrackah, "y");
 
 			FlxG.watch.add(lifeCounter, "text");
-			/*FlxG.watch.add(starIcon, "x");
-			FlxG.watch.add(starIcon, "y");
-
-			FlxG.watch.add(coinIcon, "text");
-			FlxG.watch.add(coinIcon, "x");
-			FlxG.watch.add(coinIcon, "y");*/
-
-			//FlxG.watch.add(health, "HP");
-
 	}
 
 	function alterStats(){
@@ -291,29 +282,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 
 				FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.1, {type: FlxTweenType.PERSIST});
 
-
-				/*if (curHealth < 8){ // Less than 8 HP.
-					/*trace("Movetype 1 Initiated.");
-					var returnToSender:FlxTimer = new FlxTimer();
-					returnToSender.start(2, sendUp, 0);
-					trace("MT0 Code Over.");
-				}else if (curHealth == 8){ // 8 HP.
-
-					moveHP(0);
-					trace("Up!");
-				//
-
-				var gotoFloat:FlxTimer = new FlxTimer();
-				gotoFloat.start(2, sendCenter, 0);
-
-				//moveHP(1);
-
-				}else{
-					trace("Where would this trace go?");
-				}*/
-
-
-
 			}
 
 		}
@@ -325,13 +293,11 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 	// this
 	if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == true){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
+
 			moveHP(2);
 	}else if (curHealth == 8 && hpTrackah.y < hpTrckFloat && chunkyHPReturn == false){
 		// Checks to see if the health is 8 and if the HP meter is above the float/lowest points.
-			//trace("HP Meter going up! (Position 1)");
-			// go to hpTrckFloat
+
 			FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckLowest}, 0.15,);
 	}
 
@@ -394,27 +360,6 @@ var chunkyHPReturn:Bool = false; // If set to true, when the HP meter is at the 
 			}
 
 		}
-
-		/*// Copy of the above but slightly ajusted so it's likely just as band-aided.
-		function sendCenter(_:FlxTimer):Void{
-		trace("SendCenter Initiated.");
-
-			if (curHealth < 8){
-			a = FlxTween.tween(hpTrackah, {x: hpTrackah.x, y: hpTrckFloat}, 0.1);
-
-			trace("Tween should be over..");
-
-				if (a.finished == true || hpTrackah.y == hpTrckHighest){
-				a.cancel();
-				trace("Tween cancelled. (Unneeded.)");
-				a.cancelChain();
-				trace("Tween cancelled from chain. (Unneeded.)");
-				a.destroy();
-				trace("Tween destroyed.");
-				}
-			}
-
-		}*/
 
 		function sendCenter(_:FlxTimer):Void{
 		//trace("SendCenter Initiated.");
